@@ -19,7 +19,7 @@ Prompt enrichi via les Q rules et le serveur MCP Terraform :
 
 ```
 Create a VPC with 3 private and 3 public subnets with Terraform. In the private subnets, deploy an ECS Fargate cluster
-with a simple nginx ECS service. In the public subnets, deploy an ALB with TLS enforced targeting the ECS Fargate cluster. 
+with a simple nginx ECS service. In the public subnets, deploy an ALB with TLS enforced targeting the ECS Fargate cluster.
 ```
 
 ## Live coding 3
@@ -31,7 +31,7 @@ git checkout -b live-coding-3
 Prompt enrichi via les Q rules, le serveur MCP Terraform et code généré à partir d'un schéma Excalidraw ajouté dans le contexte du prompt suivant :
 
 ```
-Create the Terraform code from the schema. 
+Create the Terraform code from the schema.
 ```
 
 ## Live coding 4
