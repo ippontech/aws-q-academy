@@ -1,0 +1,52 @@
+name: live-coding-6
+
+on:
+  pull_request:
+    paths:
+      - "live-coding-6/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "live-coding-6/**"
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: live-coding-6
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.13.5"
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::721665305066:role/aws-q-academy-dev-github-actions
+          aws-region: eu-west-3
+
+      - run: terraform init
+
+      - name: terraform plan
+        if: github.event_name == 'pull_request'
+        id: plan
+        run: terraform plan -no-color 2>&1 | tee /tmp/plan.txt
+
+      - name: comment PR with plan
+        if: github.event_name == 'pull_request'
+        uses: ./.github/actions/terraform-pr-comment
+        with:
+          title: "Terraform Plan - live-coding-6"
+
+      - name: terraform apply
+        if: github.event_name == 'push'
+        run: terraform apply -auto-approve
