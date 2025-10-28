@@ -27,3 +27,15 @@ Prompt enrichi via les Q rules :
 ```
 Create a VPC with 3 private and 3 public subnets with Terraform.
 ```
+
+## Live coding 4
+
+```shell
+git checkout -b live-coding-4
+```
+
+Prompt enrichi via les Q rules et le serveur MCP Terraform :
+
+```
+Create a VPC with 3 private and 3 public subnets with Terraform.
+```
