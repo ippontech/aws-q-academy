@@ -8,6 +8,30 @@
         "--rm",
         "hashicorp/terraform-mcp-server:0.3"
       ]
+    },
+    "github": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server:0.20.1"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_AWS_Q_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "awslabs.iam-mcp-server": {
+      "command": "uvx",
+      "args": ["awslabs.iam-mcp-server@latest"],
+      "env": {
+        "AWS_PROFILE": "ippon-data-lab",
+        "AWS_REGION": "eu-west-3",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
     }
   }
 }

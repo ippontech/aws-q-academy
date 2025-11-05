@@ -58,8 +58,16 @@ Create the Terraform code from the schema.
 git checkout -b live-coding-6
 ```
 
-Prompt enrichi via des Q rules "prod-ready" (Terraform / GitHub Actions / ...) et de multiples serveurs MCP pour déployer jusqu'en production :
+Les prompts sont enrichis via des Q rules "prod-ready" et de multiples serveurs MCP pour déployer jusqu'en production.
+
+Prompt pour configurer un OIDC provider :
 
 ```
-Create a VPC with 3 private and 3 public subnets with Terraform and deploy it thanks to GitHub Actions.
+Could you configure an IAM provider with OIDC in my AWS account with profile ippon-data-lab so that I can use it from GitHub please? You can store the Terraform state in aws-q-academy-terraform-states S3 bucket and use the same profile to store the state on S3.
+```
+
+Prompt pour déployer un VPC :
+
+```
+Create a VPC with 3 private and 3 public subnets with Terraform in folder vpc-demo and deploy it thanks to GitHub Actions.
 ```

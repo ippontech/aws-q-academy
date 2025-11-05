@@ -26,6 +26,7 @@ When generating or modifying Terraform code for AWS, follow these best practices
 ## State Management
 
 - Use a remote backend to store Terraform state
+- Store the configuration of the Terraform backend in backend.tf Terraform file
 - Enable versioning on the S3 state bucket
 - Use state locking with S3 file lock (not DynamoDB)
 - Do not include sensitive data in outputs
@@ -56,6 +57,7 @@ When generating or modifying Terraform code for AWS, follow these best practices
 - Use validations for input variables
 - Prefer conditional resources over count for optional resources
 - Use for_each over count for multiple resources
+- Always add .terraform.lock.hcl files to Terraform root modules to be consistent between multiple deployments
 
 ## Networking
 
