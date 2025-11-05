@@ -1,0 +1,4 @@
+github_org  = "your-github-org"
+github_repo = "aws-q-academy"
+role_name   = "github-actions-role"
+region      = "eu-west-3"

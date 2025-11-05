@@ -76,8 +76,9 @@ When generating or modifying Terraform code for AWS, follow these best practices
 - To avoid regressions, it is best to fix dependency versions.
 - For Terraform OSS modules, use a fixed version (preferably the latest available on the Terraform registry) in the module version field
 
-## Testing
+## Linting and testing
 
+- Use pre-commit to lint the code with the following hooks: terraform_fmt, terraform_validate, terraform_docs, terraform_docs, terraform_trivy
 - Each validator for Terraform input variables must be tested, but only failed cases.
 - For each module generated, an example must be provided.
 - For each example, there must be a test that runs it.

@@ -49,7 +49,7 @@ git checkout -b live-coding-5
 Prompt enrichi via les Q rules, le serveur MCP Terraform et code généré à partir d'un schéma Excalidraw ajouté dans le contexte du prompt suivant :
 
 ```
-Create the Terraform code from the schema. 
+Create the Terraform code from the schema.
 ```
 
 ## Live coding 6
