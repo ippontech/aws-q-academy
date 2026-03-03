@@ -11,13 +11,15 @@ with a simple nginx ECS service. In the public subnets, deploy an ALB targeting 
 
 ## Live coding 2
 
-Prompt enrichi avec quelques bonnes pratiques :
+```shell
+git checkout -b live-coding-2
+```
+
+Prompt enrichi via les Q rules :
 
 ```
 Create a VPC with 3 private and 3 public subnets with Terraform. In the private subnets, deploy an ECS Fargate cluster
 with a simple nginx ECS service. In the public subnets, deploy an ALB with TLS enforced targeting the ECS Fargate cluster. 
-
-Generate outputs for main resources. Add project, env and region variables. Document as much as possible.
 ```
 
 ## Live coding 3
@@ -26,7 +28,7 @@ Generate outputs for main resources. Add project, env and region variables. Docu
 git checkout -b live-coding-3
 ```
 
-Prompt enrichi via les Q rules :
+Prompt enrichi via les Q rules et le serveur MCP Terraform :
 
 ```
 Create a VPC with 3 private and 3 public subnets with Terraform. In the private subnets, deploy an ECS Fargate cluster
@@ -39,29 +41,16 @@ with a simple nginx ECS service. In the public subnets, deploy an ALB with TLS e
 git checkout -b live-coding-4
 ```
 
-Prompt enrichi via les Q rules et le serveur MCP Terraform :
-
-```
-Create a VPC with 3 private and 3 public subnets with Terraform. In the private subnets, deploy an ECS Fargate cluster
-with a simple nginx ECS service. In the public subnets, deploy an ALB with TLS enforced targeting the ECS Fargate cluster. 
-```
-
-## Live coding 5
-
-```shell
-git checkout -b live-coding-5
-```
-
 Prompt enrichi via les Q rules, le serveur MCP Terraform et code généré à partir d'un schéma Excalidraw ajouté dans le contexte du prompt suivant :
 
 ```
 Create the Terraform code from the schema. 
 ```
 
-## Live coding 6
+## Live coding 5
 
 ```shell
-git checkout -b live-coding-6
+git checkout -b live-coding-5
 ```
 
 Prompt enrichi via des Q rules "prod-ready" (Terraform / GitHub Actions / ...) et de multiples serveurs MCP pour déployer jusqu'en production :
