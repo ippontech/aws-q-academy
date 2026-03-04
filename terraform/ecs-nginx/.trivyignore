@@ -1,0 +1,8 @@
+# False positives from official terraform-aws-modules - public ALB is intentional
+AVD-AWS-0053
+
+# False positives from official terraform-aws-modules - ALB SG egress is managed by the module
+AVD-AWS-0104
+
+# False positives from official terraform-aws-modules/vpc - default NACL rules
+AVD-AWS-0102

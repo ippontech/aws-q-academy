@@ -17,12 +17,9 @@
         "-i",
         "--rm",
         "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_AWS_Q_PERSONAL_ACCESS_TOKEN}",
         "ghcr.io/github/github-mcp-server:0.31"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_AWS_Q_PERSONAL_ACCESS_TOKEN}"
-      }
+      ]
     }
   }
 }
