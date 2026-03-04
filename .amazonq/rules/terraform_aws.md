@@ -2,9 +2,10 @@
 
 When generating or modifying Terraform code for AWS, follow these best practices:
 
-## AWS Configuration
+## AWS credentials
 
-- Use the `ippon-data-lab` AWS profile to connect to AWS.
+- Use the `ippon-data-lab` AWS profile to connect to AWS from local environment.
+- Do not use an AWS profile from GHA workflows, AWS credentials will be available thanks to an assume role executed from the GitHub workflows.
 - Amazon Q Jetbrains plugin overrides variable AWS_CONFIG_FILE with an empty temporary file which hides the content
 of `~/.aws/config` file. You must force the use of the right file to get AWS credentials in the environment to apply
 Terraform code in Amazon Q as such:
