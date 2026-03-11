@@ -7,7 +7,16 @@
         "-i",
         "--rm",
         "hashicorp/terraform-mcp-server:0.4"
+      ],
+      "autoApprove": [
+        "get_module_details",
+        "search_modules"
       ]
+    },
+    "aws-knowledge-mcp-server": {
+      "url": "https://knowledge-mcp.global.api.aws",
+      "type": "http",
+      "disabled": false
     }
   }
 }

@@ -77,7 +77,7 @@ AWS_CONFIG_FILE=~/.aws/config
   - Owner
   - Project
   - Cost Center
-  - Managed By: “terraform”
+  - Managed By: "terraform"
   - Root Module URL: <URL of the current Git repository from which the terraform apply that manages this resource will be launched>
 
 ### Performance and Costs

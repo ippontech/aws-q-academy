@@ -5,12 +5,14 @@
   "when": {
     "type": "fileEdited",
     "patterns": [
-      "*"
+      "*.tf"
     ]
   },
   "then": {
     "type": "runCommand",
     "command": "pre-commit run -a",
     "timeout": 30
-  }
+  },
+  "workspaceFolderName": "aws-q-academy",
+  "shortName": "automatically-run-pre-commit-when-files-are-saved"
 }
