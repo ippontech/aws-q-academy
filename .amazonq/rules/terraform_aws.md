@@ -15,5 +15,4 @@ AWS_CONFIG_FILE=~/.aws/config
 
 ## Init / Plan / Apply
 
-- Amazon Q does not deal well with Terraform colorful outputs so use the -no-color option when performing Terraform
-commands.
+- Amazon Q does not deal well with Terraform colorful outputs so use the -no-color option when performing Terraform commands.
