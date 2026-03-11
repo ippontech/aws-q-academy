@@ -1,0 +1,136 @@
+# Tech Stack
+
+## Infrastructure as Code
+- Terraform (AWS provider) — primary IaC tool
+- Prefer official `terraform-aws-modules` registry: https://registry.terraform.io/namespaces/terraform-aws-modules
+- Fallback: CloudPosse registry: https://registry.terraform.io/namespaces/cloudposse
+- Always use fixed (non-range) versions for providers and modules
+
+## CI/CD
+- GitHub Actions for plan/apply workflows and pre-commit checks
+- GitHub OIDC for keyless AWS authentication from GHA
+
+## Code Quality
+- pre-commit with hooks:
+  - `terraform_fmt` — formatting
+  - `terraform_validate` — syntax validation
+  - `terraform_docs` — auto-generates README.md docs
+  - `terraform_trivy` — security scanning (HIGH/CRITICAL severity)
+  - `check-merge-conflict`, `end-of-file-fixer`, `trailing-whitespace`
+
+## AWS
+- Default region: `eu-west-3` (Paris)
+- Terraform remote state: S3 bucket `aws-q-academy-terraform-states`, S3 file locking (no DynamoDB)
+- Local AWS profile: `ippon-data-lab`
+
+### AWS credentials
+
+- Use the `ippon-data-lab` AWS profile to connect to AWS from local environment.
+- Do not use an AWS profile from GHA workflows, AWS credentials will be available thanks to an assume role executed from the GitHub workflows.
+- Amazon Q Jetbrains plugin overrides variable AWS_CONFIG_FILE with an empty temporary file which hides the content
+  of `~/.aws/config` file. You must force the use of the right file to get AWS credentials in the environment to apply
+  Terraform code in Amazon Q as such:
+
+```shell
+AWS_CONFIG_FILE=~/.aws/config
+```
+
+### Init / Plan / Apply
+
+- Amazon Q does not deal well with Terraform colorful outputs so use the -no-color option when performing Terraform commands.
+
+### Structure and Organization
+
+- Use a modular structure with reusable modules
+- Prefer to use existing OSS Terraform modules on the internet
+  - As a priority, use official Terraform registry: https://registry.terraform.io/namespaces/terraform-aws-modules
+  - Else, use CloudPosse registry: https://registry.terraform.io/namespaces/cloudposse
+- Separate environments (dev, staging, prod) with separate workspaces or directories
+- Use variables for all configurable parameters
+- Prefer relative paths for local modules
+- In Terraform root modules, put the Terraform providers' configuration in a file called providers.tf
+- Terraform version constraints' and providers' constraints must stay in file called versions.tf
+- Terraform state S3 backend configuration code must be in a file called backend.tf
+- Try to regroup resources by the Cloud Provider's services to avoid having all the code in one main.tf file
+
+### Security
+
+- Never use hard-coded credentials in code
+- Use IAM roles with the principle of least privilege
+- Enable default encryption for all services that support it (S3, RDS, etc.)
+- Use restrictive security groups for network resources
+- Prefer private VPCs with VPC endpoints over public access
+
+### State Management
+
+- Use the S3 remote backend bucket `aws-q-academy-terraform-states` in Paris region to store Terraform state
+- Enable versioning on the S3 state bucket
+- Use state locking with S3 file lock (not DynamoDB)
+- Do not include sensitive data in outputs
+
+### Naming and Tagging
+
+- Use a consistent naming scheme for all resources
+- Do not add resource type as a suffix or prefix to resource names (for instance, use "my-app" instead of "my-app-vpc")
+- Systematically apply tags for:
+  - Environment (dev, staging, prod)
+  - Owner
+  - Project
+  - Cost Center
+  - Managed By: “terraform”
+  - Root Module URL: <URL of the current Git repository from which the terraform apply that manages this resource will be launched>
+
+### Performance and Costs
+
+- Use on-demand instances for development and reserved instances for production
+- Configure lifecycle policies for S3 buckets
+- Use Auto Scaling Groups to scale resources on demand
+- Configure CloudWatch alarms to monitor costs
+
+### Code Best Practices
+
+- Always use fixed versions for providers and modules to avoid regressions between two `terraform plan` commands (do not use Terraform version constraint ~>)
+- Document code as much as possible with README.md, variable descriptions, output descriptions, and comments (do not over-comment either when datasource/resource are self explaining)
+- Use validations for input variables
+- Prefer conditional resources over count for optional resources
+- Use for_each over count for multiple resources
+- Always add .terraform.lock.hcl files to Terraform root modules to be consistent between multiple deployments
+
+### Networking
+
+- Use private subnets for resources that do not require direct Internet access
+- Configure NAT Gateways only in environments that require them
+- Use Transit Gateways for multi-account/multi-VPC architectures
+
+### Deployment
+
+- Always use terraform plan before applying changes
+- Integrate Terraform into CI/CD pipelines for production environments
+- Use blue/green approaches for critical updates
+
+### Non-regression
+
+- To avoid regressions, it is best to fix dependency versions.
+- For Terraform OSS modules, use a fixed version (preferably the latest available on the Terraform registry) in the module version field
+
+### Testing
+
+- Each validator for Terraform input variables must be tested, but only failed cases.
+- For each module generated, an example must be provided.
+- For each example, there must be a test that runs it.
+
+### Use of MCP
+
+- Check each generated code to ensure that everything is correct (syntax, Terraform arguments) using the MCP server `terraform-mcp-server`. Before generating any code, ensure that interaction with this MCP server is working properly.
+
+## Common Commands
+
+```shell
+# Lint and validate all files
+pre-commit run -a
+
+# Terraform workflow (always use -no-color)
+AWS_CONFIG_FILE=~/.aws/config terraform init
+AWS_CONFIG_FILE=~/.aws/config terraform plan -no-color
+AWS_CONFIG_FILE=~/.aws/config terraform apply -no-color
+```
